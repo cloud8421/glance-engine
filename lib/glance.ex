@@ -4,6 +4,7 @@ defmodule Glance do
   alias Glance.Forecast
   alias Glance.News
   alias Glance.Tube
+  alias Glance.Weekend
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
@@ -15,6 +16,7 @@ defmodule Glance do
       worker(Forecast, []),
       worker(News, []),
       worker(Tube, []),
+      worker(Weekend, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

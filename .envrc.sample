@@ -1,0 +1,2 @@
+export FORECASTIO_API_KEY=xxx
+export GUARDIAN_API_KEY=xxx

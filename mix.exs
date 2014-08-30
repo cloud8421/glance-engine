@@ -29,7 +29,8 @@ defmodule Glance.Mixfile do
     [
       {:cowboy, "~> 1.0.0"},
       {:plug, "~> 0.6.0"},
-      {:httpoison, "~> 0.4.1"}
+      {:httpoison, "~> 0.4.1"},
+      {:jazz, "0.2.0"}
     ]
   end
 end

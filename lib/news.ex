@@ -72,7 +72,7 @@ defmodule Glance.News do
   end
 
   defp do_api_url(params) do
-    "#{base_url}?#{params |> params_to_query_string}"
+    "#{base_url}?#{params |> UriUtils.list_to_query_string}"
   end
 
   defp base_url do
@@ -83,10 +83,4 @@ defmodule Glance.News do
     System.get_env("GUARDIAN_API_KEY")
   end
 
-  defp params_to_query_string(params) do
-    Enum.map(params, fn({name, value}) ->
-      "#{name}=#{value}"
-    end)
-    |> Enum.join("&")
-  end
 end

@@ -1,5 +1,4 @@
 defmodule Glance.Weekend do
-  use Jazz
   use GenServer
 
   @refresh_interval 60000

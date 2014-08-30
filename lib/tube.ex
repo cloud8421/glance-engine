@@ -1,6 +1,7 @@
 defmodule Glance.Tube do
   use Jazz
   use GenServer
+  alias Glance.TubeParser
 
   @refresh_interval 60000
 
@@ -45,7 +46,7 @@ defmodule Glance.Tube do
 
   defp get_data do
     %HTTPoison.Response{status_code: 200, body: body} = HTTPoison.get(tube_api_url)
-    body |> parse
+    body |> parse |> TubeParser.parse
   end
 
   defp tube_api_url do

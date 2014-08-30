@@ -1,4 +1,4 @@
-defmodule News do
+defmodule Glance.News do
   use Jazz
   use GenServer
 

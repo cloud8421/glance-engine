@@ -1,4 +1,4 @@
-defmodule Forecast do
+defmodule Glance.Forecast do
   use Jazz
   use GenServer
 

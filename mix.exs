@@ -28,7 +28,8 @@ defmodule Glance.Mixfile do
   defp deps do
     [
       {:httpoison, "~> 0.4.1"},
-      {:jazz, "0.2.0"}
+      {:jazz, "0.2.0"},
+      {:erlsom, git: "https://github.com/willemdj/erlsom"}
     ]
   end
 end

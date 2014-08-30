@@ -3,6 +3,7 @@ defmodule Glance do
 
   alias Glance.Forecast
   alias Glance.News
+  alias Glance.Tube
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
@@ -12,7 +13,8 @@ defmodule Glance do
     children = [
       # Define workers and child supervisors to be supervised
       worker(Forecast, []),
-      worker(News, [])
+      worker(News, []),
+      worker(Tube, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

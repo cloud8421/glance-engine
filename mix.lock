@@ -1,5 +1,6 @@
 %{"cowboy": {:package, "1.0.0"},
   "cowlib": {:package, "1.0.0"},
+  "erlsom": {:git, "https://github.com/willemdj/erlsom", "138b9ad2b6dc5f050a7ed431ac2615499850f7e2", []},
   "hackney": {:package, "0.13.1"},
   "httpoison": {:package, "0.4.1"},
   "idna": {:package, "1.0.1"},

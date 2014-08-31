@@ -1,2 +1,4 @@
 export FORECASTIO_API_KEY=xxx
 export GUARDIAN_API_KEY=xxx
+export TFL_API_KEY=xxx
+export WEEKEND_APP_ID=xxx

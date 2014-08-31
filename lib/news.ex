@@ -1,6 +1,7 @@
 defmodule Glance.News do
   use Jazz
   use GenServer
+  alias Glance.NewsParser
 
   @refresh_interval 300_000
   @allowed_server_ids [:news_uk, :news_italy]
@@ -52,7 +53,7 @@ defmodule Glance.News do
   defp get_data(country) do
     %HTTPoison.Response{status_code: 200, body: body} = api_url(country)
     |> HTTPoison.get
-    JSON.decode!(body)
+    JSON.decode!(body) |> NewsParser.parse
   end
 
   defp api_url(:uk) do

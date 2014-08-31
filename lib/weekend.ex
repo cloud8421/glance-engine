@@ -1,5 +1,6 @@
 defmodule Glance.Weekend do
   use GenServer
+  alias Glance.WeekendParser
 
   @refresh_interval 60000
 
@@ -44,7 +45,7 @@ defmodule Glance.Weekend do
 
   defp get_data do
     %HTTPoison.Response{status_code: 200, body: body} = HTTPoison.get(api_url)
-    body |> parse
+    body |> parse |> WeekendParser.parse
   end
 
   def api_url do

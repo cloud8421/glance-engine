@@ -3,6 +3,7 @@ defmodule Glance.News do
   use GenServer
 
   @refresh_interval 300_000
+  @allowed_server_ids [:news_uk, :news_italy]
 
   # Public API
 
@@ -12,7 +13,7 @@ defmodule Glance.News do
 
   # GenServer Callbacks
 
-  def start_link(server_id) when is_atom(server_id) do
+  def start_link(server_id) when server_id in @allowed_server_ids do
     GenServer.start_link(__MODULE__, server_id, name: server_id)
   end
 

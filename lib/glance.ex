@@ -14,7 +14,8 @@ defmodule Glance do
     children = [
       # Define workers and child supervisors to be supervised
       worker(Forecast, []),
-      worker(News, []),
+      worker(News, [:news_uk], id: :news_uk),
+      worker(News, [:news_italy], id: :news_italy),
       worker(Tube, []),
       worker(Weekend, []),
     ]

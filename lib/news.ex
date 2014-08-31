@@ -6,47 +6,46 @@ defmodule Glance.News do
 
   # Public API
 
-  def get(country) when country in [:uk, :italy] do
-    GenServer.call(__MODULE__, {:get, country})
+  def get(server_id) do
+    GenServer.call(server_id, :get)
   end
 
   # GenServer Callbacks
 
-  def start_link do
-    initial = %{uk: nil, italy: nil}
-    {:ok, cache} = Agent.start_link(fn() -> initial end)
-    GenServer.start_link(__MODULE__, cache, name: __MODULE__)
+  def start_link(server_id) when is_atom(server_id) do
+    GenServer.start_link(__MODULE__, server_id, name: server_id)
   end
 
-  def init(cache) do
-    {:ok, cache, 0}
+  def init(server_id) do
+    initial_state = %{
+      server_id: server_id,
+      data: nil
+    }
+    {:ok, initial_state, 0}
   end
 
-  def handle_call({:get, country}, _From, cache) do
-    country_news = Agent.get(cache, fn(news) ->
-      Map.get(news, country)
-    end)
-    {:reply, country_news, cache}
+  def handle_call(:get, _From, state) do
+    {:reply, state.data, state}
   end
 
-  def handle_cast({:update, country}, cache) do
-    country_data = get_data(country)
-    Agent.get_and_update(cache, fn(news) ->
-      {:ok, Map.put(news, country, country_data)}
-    end)
-    {:noreply, cache, @refresh_interval}
+  def handle_cast(:update, state) do
+    data = get_data(state.server_id |> country_for)
+    new_state = Map.put(state, :data, data)
+    {:noreply, new_state, @refresh_interval}
   end
 
-  def handle_info(:timeout, cache) do
-    update
-    {:noreply, cache}
+  def handle_info(:timeout, state) do
+    update(state.server_id)
+    {:noreply, state}
   end
 
   # Internal
 
-  defp update do
-    GenServer.cast(__MODULE__, {:update, :italy})
-    GenServer.cast(__MODULE__, {:update, :uk})
+  defp country_for(:news_uk), do: :uk
+  defp country_for(:news_italy), do: :italy
+
+  defp update(server_id) do
+    GenServer.cast(server_id, :update)
   end
 
   defp get_data(country) do

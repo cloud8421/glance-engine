@@ -27,7 +27,9 @@ defmodule Glance.Forecast do
   end
 
   def handle_cast(:update, _data) do
-    {:noreply, get_data, @refresh_interval}
+    new_data = get_data
+    GenEvent.notify(:event_dispatcher, {:updated, :forecast})
+    {:noreply, new_data, @refresh_interval}
   end
 
   def handle_info(:timeout, data) do

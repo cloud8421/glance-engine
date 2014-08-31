@@ -33,6 +33,7 @@ defmodule Glance.News do
   def handle_cast(:update, state) do
     data = get_data(state.server_id |> country_for)
     new_state = Map.put(state, :data, data)
+    GenEvent.notify(:event_dispatcher, {:updated, state.server_id})
     {:noreply, new_state, @refresh_interval}
   end
 

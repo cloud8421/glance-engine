@@ -4,7 +4,7 @@ defmodule Glance.Mixfile do
   def project do
     [app: :glance,
      version: "0.0.1",
-     elixir: "~> 0.15.0",
+     elixir: "~> 1.0.0-rc1",
      deps: deps]
   end
 

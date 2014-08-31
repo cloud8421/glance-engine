@@ -14,28 +14,24 @@ defmodule Glance.Tube do
   # GenServer Callbacks
 
   def start_link do
-    {:ok, cache} = Agent.start_link(fn() -> nil end)
-    GenServer.start_link(__MODULE__, cache, name: __MODULE__)
+    GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
-  def init(cache) do
-    {:ok, cache, 0}
+  def init(data) do
+    {:ok, data, 0}
   end
 
-  def handle_call(:get, _from, cache) do
-    value = Agent.get(cache, fn(cached_value) -> cached_value end)
-    {:reply, value, cache}
+  def handle_call(:get, _from, data) do
+    {:reply, data, data}
   end
 
-  def handle_cast(:update, cache) do
-    body = get_data
-    Agent.update(cache, fn(_old_value) -> body end)
-    {:noreply, cache, @refresh_interval}
+  def handle_cast(:update, _data) do
+    {:noreply, get_data, @refresh_interval}
   end
 
-  def handle_info(:timeout, cache) do
+  def handle_info(:timeout, data) do
     update
-    {:noreply, cache}
+    {:noreply, data}
   end
 
   # Internal

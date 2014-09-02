@@ -6,4 +6,5 @@
   "idna": {:package, "1.0.1"},
   "jazz": {:package, "0.2.0"},
   "plug": {:package, "0.6.0"},
-  "ranch": {:package, "1.0.0"}}
+  "ranch": {:package, "1.0.0"},
+  "timex": {:package, "0.12.4"}}

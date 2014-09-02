@@ -27,6 +27,7 @@ defmodule Glance.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
+      {:timex, "~> 0.12.4"},
       {:httpoison, "~> 0.4.1"},
       {:jazz, "0.2.0"},
       {:erlsom, git: "https://github.com/willemdj/erlsom"}

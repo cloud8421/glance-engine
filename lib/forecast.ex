@@ -4,7 +4,7 @@ defmodule Glance.Forecast do
 
   @lat 51.5199579
   @lng -0.0990549
-  @refresh_interval 60000
+  @refresh_interval 60_000
 
   # Public API
 
@@ -27,9 +27,9 @@ defmodule Glance.Forecast do
   end
 
   def handle_cast(:update, _data) do
-    new_data = get_data
+    {expiry, new_data} = get_data
     GenEvent.notify(:event_dispatcher, {:updated, :forecast})
-    {:noreply, new_data, @refresh_interval}
+    {:noreply, new_data, expiry}
   end
 
   def handle_info(:timeout, data) do
@@ -44,8 +44,9 @@ defmodule Glance.Forecast do
   end
 
   defp get_data do
-    %HTTPoison.Response{status_code: 200, body: body} = HTTPoison.get(api_url)
-    JSON.decode!(body)
+    %HTTPoison.Response{status_code: 200, body: body, headers: headers} = HTTPoison.get(api_url)
+    ttl = calculate_expiry(headers["Expires"])
+    {ttl, JSON.decode!(body)}
   end
 
   defp api_url do
@@ -62,6 +63,11 @@ defmodule Glance.Forecast do
 
   defp api_key do
     System.get_env("FORECASTIO_API_KEY")
+  end
+
+  defp calculate_expiry(nil), do: @refresh_interval
+  defp calculate_expiry(expires_header) do
+    Glance.HttpUtils.ttl_for(expires_header, Timex.Date.now)
   end
 
 end

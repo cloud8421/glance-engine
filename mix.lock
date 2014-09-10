@@ -2,9 +2,9 @@
   "cowlib": {:package, "1.0.0"},
   "erlsom": {:git, "https://github.com/willemdj/erlsom", "138b9ad2b6dc5f050a7ed431ac2615499850f7e2", []},
   "hackney": {:package, "0.13.1"},
-  "httpoison": {:package, "0.4.1"},
+  "httpoison": {:package, "0.4.2"},
   "idna": {:package, "1.0.1"},
   "jazz": {:package, "0.2.0"},
   "plug": {:package, "0.6.0"},
   "ranch": {:package, "1.0.0"},
-  "timex": {:package, "0.12.4"}}
+  "timex": {:package, "0.12.5"}}
